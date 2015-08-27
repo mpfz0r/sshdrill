@@ -54,7 +54,7 @@ size_t strlcpy(char *dst, const char *src, size_t siz);
 #define ESCAPE_CHAR '~'
 #define ESCAPE_STR  "~"
 #define MAX_SSH_DEPTH 6
-#define PROMPT "\r\nsshwrap> "
+#define PROMPT "\r\nsshdrill> "
 
 int	master, slave;
 volatile sig_atomic_t child;

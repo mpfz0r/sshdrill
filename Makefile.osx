@@ -7,6 +7,7 @@ CFLAGS+= -Wmissing-declarations
 CFLAGS+= -Wshadow -Wpointer-arith -Wcast-qual
 CFLAGS+= -Wsign-compare
 LDADD=	-lutil
+PREFIX?=/usr/local
 
 CPPFLAGS+=-DHAVE_UTMP_H -DHAVE_STRLCPY -DHAVE_UTIL_H
 
@@ -15,3 +16,7 @@ CPPFLAGS+=-DHAVE_UTMP_H -DHAVE_STRLCPY -DHAVE_UTIL_H
 
 sshdrill: sshdrill.o strlcpy.o
 	$(LD) -o $@ sshdrill.o strlcpy.o $(LDFLAGS) $(LDADD)
+
+install: sshdrill
+	install -d $(PREFIX)/bin
+	install sshdrill $(PREFIX)/bin

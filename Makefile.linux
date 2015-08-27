@@ -13,5 +13,5 @@ CPPFLAGS+=-DHAVE_PTY_H -DHAVE_UTMP_H
 .c.o:
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-sshwrap: sshwrap.o strlcpy.o
-	$(LD) -o $@ sshwrap.o strlcpy.o $(LDFLAGS) $(LDADD)
+sshdrill: sshdrill.o strlcpy.o
+	$(LD) -o $@ sshdrill.o strlcpy.o $(LDFLAGS) $(LDADD)

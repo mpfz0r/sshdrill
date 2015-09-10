@@ -6,7 +6,7 @@ A shell wrapper to automate ssh tunnel creation over multiple jump hosts.
 
 Imagine you are logged into a customer's server.
 To get there, you had to *ssh* through one or more jump hosts, and now you need to set up a port forwarding to debug a service.  
-Configuring the intermediate tunnels to get a port forwarded through all the jump hosts can be tedious.  
+Configuring the intermediate tunnels to get a port forwarded through all the jump hosts can be tedious.
 *sshdrill* automates this task for you.
 
 Once started, *sshdrill* runs an interactive shell session. From there you can *ssh* into a series of hosts. *sshdrill* will listen for the *ssh* escape sequence '~C' to break into a command prompt which

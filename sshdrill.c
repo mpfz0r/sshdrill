@@ -166,8 +166,11 @@ command_prompt(void)
 	char tunnel_fwd[BUFSIZ], last_fwd[BUFSIZ];
 	ssize_t nr;
 	char ch, *p, *fwd, buf[BUFSIZ];
+	struct termios ptt;
 
-	(void)tcsetattr(STDIN_FILENO, TCSAFLUSH, &tt);
+	ptt = tt;
+	ptt.c_lflag &= ~ISIG;
+	(void)tcsetattr(STDIN_FILENO, TCSAFLUSH, &ptt);
 
 	if (do_write(STDOUT_FILENO, PROMPT, strlen(PROMPT)) <= 0)
 		goto abort;

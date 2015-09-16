@@ -54,19 +54,21 @@ size_t strlcpy(char *dst, const char *src, size_t siz);
 #define ESCAPE_CHAR '~'
 #define ESCAPE_STR  "~"
 #define MAX_SSH_DEPTH 6
+#define PROGNAME "sshdrill"
 #define PROMPT "\r\nsshdrill> "
 
 int	master, slave;
 volatile sig_atomic_t child;
 struct	termios tt;
 struct termios rtt;
+int runshell = 0;
 
 volatile sig_atomic_t dead;
 volatile sig_atomic_t sigdeadstatus;
 volatile sig_atomic_t flush;
 
 void done(int);
-void doshell(void);
+void execcmd(char *[]);
 void dooutput(void);
 void fail(void);
 void finish(int);
@@ -89,6 +91,9 @@ main(int argc, char *argv[])
 	ssize_t cc, off;
 	fd_set rfdset;
 	int ret;
+
+	if (argc == 1)
+		runshell = 1;
 
 	(void)tcgetattr(STDIN_FILENO, &tt);
 	(void)ioctl(STDIN_FILENO, TIOCGWINSZ, &win);
@@ -115,7 +120,7 @@ main(int argc, char *argv[])
 		fail();
 	}
 	if (child == 0) {
-		doshell();
+		execcmd(argv);
 	}
 
 	for (;;) {
@@ -529,7 +534,7 @@ finish(int signo)
 }
 
 void
-doshell(void)
+execcmd(char *argv[])
 {
 	char *shell;
 
@@ -539,7 +544,12 @@ doshell(void)
 
 	(void)close(master);
 	login_tty(slave);
-	execl(shell, shell, "-il", (char *)NULL);
+	if (runshell) {
+		fprintf(stderr, "Sshdrill shell session started.\n");
+		execl(shell, shell, "-il", (char *)NULL);
+	} else {
+		execvp("ssh", argv);
+	}
 	warn("%s", shell);
 	fail();
 }

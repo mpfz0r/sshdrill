@@ -92,6 +92,10 @@ main(int argc, char *argv[])
 	fd_set rfdset;
 	int ret;
 
+	/* If not interactive, just exec ssh */
+	if (!isatty(STDIN_FILENO))
+		execvp("ssh", argv);
+
 	if (argc == 1)
 		runshell = 1;
 

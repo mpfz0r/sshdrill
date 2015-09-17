@@ -1,6 +1,6 @@
 # sshdrill
 
-A shell wrapper to automate ssh tunnel creation over multiple jump hosts.
+A ssh wrapper to automate tunnel creation over multiple jump hosts.
 
 ## Description
 
@@ -17,8 +17,7 @@ It then converts the requested forwarding into a series of forwardings for each 
 ##Example Session
 
 ```
-me@workstation:~$ sshdrill
-me@workstation:~$
+me@workstation:~$ alias ssh=sshdrill
 me@workstation:~$ ssh jumphost1
 user@jumphost1:~$ ssh jumphost2
 user@jumphost2:~$ ssh root@target

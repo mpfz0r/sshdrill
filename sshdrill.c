@@ -67,7 +67,7 @@ volatile sig_atomic_t dead;
 volatile sig_atomic_t sigdeadstatus;
 volatile sig_atomic_t flush;
 
-void done(int);
+void done(int, int);
 void execcmd(char *[]);
 void dooutput(void);
 void fail(void);
@@ -163,7 +163,7 @@ main(int argc, char *argv[])
 			do_write(STDOUT_FILENO, obuf, cc);
 		}
 	}
-	done(sigdeadstatus);
+	done(sigdeadstatus, 0);
 
 	return 1; /* NOTREACHED */
 }
@@ -484,7 +484,9 @@ scan_for_escape(ssize_t cc, char *ibuf)
 	int i;
 
 	for (i = 0; i < cc; i++) {
-		if (got_escape && ibuf[i] == 'C') {
+		if (got_escape && ibuf[i] == '.') {
+			done(255, 1);
+		} else if (got_escape && ibuf[i] == 'C') {
 			got_newline = got_escape = 0;
 			command_prompt();
 			return 1;
@@ -561,14 +563,15 @@ execcmd(char *argv[])
 void
 fail(void)
 {
-
 	(void)kill(0, SIGTERM);
-	done(1);
+	done(1, 0);
 }
 
 void
-done(int eval)
+done(int eval, int msg)
 {
 	(void)tcsetattr(STDIN_FILENO, TCSAFLUSH, &tt);
+	if (msg)
+		fprintf(stderr, "Terminating %s.\n", PROGNAME);
 	exit(eval);
 }

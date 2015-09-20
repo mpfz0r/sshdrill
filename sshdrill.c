@@ -171,7 +171,7 @@ main(int argc, char *argv[])
 			if (cc == -1 && errno == EINTR)
 				continue;
 			if (cc <= 0)
-				break;
+				continue;
 			do_write(STDOUT_FILENO, obuf, cc);
 		}
 	}

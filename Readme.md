@@ -9,9 +9,9 @@ To get there, you had to *ssh* through one or more jump hosts, and now you need 
 Configuring the intermediate tunnels to get a port forwarded through all the jump hosts can be tedious.
 *sshdrill* automates this task for you.
 
-Once started, *sshdrill* runs an interactive shell session. From there you can *ssh* into a series of hosts. *sshdrill* will listen for the *ssh* escape sequence '~C' to break into a command prompt which
+*sshdrill* runs as a wrapper around your interactive *ssh* session.  It will listen for the *ssh* escape sequence '~C' to break into a command prompt which
 accepts *ssh's* forwarding syntax.
-It then converts the requested forwarding into a series of forwardings for each hop on the way, scans how many nested *ssh* sessions are running, and applies the forwardings accordingly.
+*sshdrill* converts the requested forwarding into a series of forwardings for each hop on the way, scans how many nested *ssh* sessions are running, and applies the forwardings accordingly.
 
 
 ##Example Session
@@ -54,6 +54,12 @@ Commands:
 ```
  
 ## Installation
+### OSX
+```
+brew tap mpfz0r/mpfz0r
+brew install sshdrill
+```
+### Other
 ```
 make -f Makefile.<Operatingsystem> install
 ```

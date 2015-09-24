@@ -1,2 +1,5 @@
 language: c
 script: make -f Makefile.linux && ./sshdrill -V
+compiler:
+  - clang
+  - gcc

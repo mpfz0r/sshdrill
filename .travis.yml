@@ -1,2 +1,2 @@
 language: c
-script: make -f Makefile.linux
+script: make -f Makefile.linux && ./sshdrill -V

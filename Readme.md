@@ -1,6 +1,9 @@
-# sshdrill
 
+[![Build Status](https://travis-ci.org/mpfz0r/sshdrill.svg?branch=master)](https://travis-ci.org/mpfz0r/sshdrill)
+
+# sshdrill
 A ssh wrapper to automate tunnel creation over multiple jump hosts.
+
 
 ## Description
 

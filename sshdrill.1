@@ -1,0 +1,34 @@
+.\"
+.\" (C) Copyright 2015 Marco Pfatschbacher <mpf@mailq.de>,
+.\"
+.TH SSHDRILL 1 "September 25, 2015"
+.SH NAME
+sshdrill \- a ssh wrapper to automate tunnel creation over multiple jump hosts
+.SH SYNOPSIS
+.B sshdrill
+.RI [ arguments ]
+.br
+.B sshdrill
+.SH DESCRIPTION
+.B sshdrill
+runs as a wrapper around an interactive
+.BR ssh (1)
+session.
+It will
+listen for the ssh escape sequence '~C' to break into a command prompt
+which accepts ssh's forwarding syntax.
+sshdrill converts the requested
+forwarding into a series of forwardings for each hop on the way, scans
+how many nested ssh sessions are running, and applies the forwardings
+accordingly.
+.PP
+.SH OPTIONS
+If
+.B sshdrill
+is invoked with arguments, it will run
+.BR ssh (1)
+directly and pass all arguments unmodified.
+.br
+If run without arguments, it will execute a login shell.
+.SH SEE ALSO
+.BR ssh (1)

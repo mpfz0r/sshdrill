@@ -1,0 +1,32 @@
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+LD=$(CC)
+
+CFLAGS+= -Wall
+CFLAGS+= -Wstrict-prototypes -Wmissing-prototypes
+CFLAGS+= -Wmissing-declarations
+CFLAGS+= -Wshadow -Wpointer-arith -Wcast-qual
+CFLAGS+= -Wsign-compare
+LDADD=	-lutil
+PREFIX?= $(DESTDIR)/usr
+BINDIR?= $(PREFIX)/bin
+MANDIR?= $(DESTDIR)/usr/share/man/man1
+
+CPPFLAGS+=-DHAVE_PTY_H -DHAVE_UTMP_H
+
+.c.o:
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -c $< -o $@
+
+sshdrill: sshdrill.o strlcpy.o
+	$(LD) -o $@ sshdrill.o strlcpy.o $(LDFLAGS) $(LDADD)
+
+install: sshdrill
+	install -d $(BINDIR)
+	install -d $(MANDIR)
+	install sshdrill $(BINDIR)
+	install sshdrill.1 $(MANDIR)
+
+clean:
+	rm -f *.o sshdrill

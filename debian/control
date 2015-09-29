@@ -1,0 +1,17 @@
+Source: sshdrill
+Section: net
+Priority: extra
+Maintainer: Marco Pfatschbacher <mpf@mailq.de>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+
+Package: sshdrill
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: a ssh wrapper to automate tunnel creation over multiple jump hosts.
+ Imagine you are logged into a customer's server. To get there, you had
+ to ssh through one or more jump hosts, and now you need to set up a
+ port forwarding to debug a service.
+ Configuring the intermediate tunnels to get a port forwarded through
+ all the jump hosts can be tedious. sshdrill automates this task for
+ you.

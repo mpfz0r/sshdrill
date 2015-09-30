@@ -62,6 +62,14 @@ Commands:
 brew tap mpfz0r/mpfz0r
 brew install sshdrill
 ```
+### Debian
+```
+# apt-get install devscripts
+$ git clone https://github.com/mpfz0r/sshdrill
+$ cd sshdrill
+$ debuild -uc -us -b
+# dpkg -i ../sshdrill_*.deb
+```
 ### Other
 ```
 make -f Makefile.<Operatingsystem> install
